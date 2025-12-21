@@ -178,6 +178,7 @@ if not df_flights.empty:
 
     # Wybieramy ładne kolumny
     final_cols = [
+        "snapshot_utc",
         "flight_number",
         "airline_icao",
         "aircraft_code",
@@ -222,7 +223,7 @@ if not df_flights.empty:
     # with engine.connect() as conn:
     #     print(
     #         pd.read_sql(
-    #             "SELECT City, Country, COUNT(*) as Loty, SUM(Est_Passengers) as Ludzie FROM live_traffic GROUP BY City ORDER BY Loty DESC LIMIT 10",
+    #             "SELECT City, Country, COUNT(*) as Loty, SUM(Est_Passengers) as Ludzie FROM flight_snapshots GROUP BY City ORDER BY Loty DESC LIMIT 10",
     #             conn,
     #         )
     #     )
@@ -230,7 +231,7 @@ if not df_flights.empty:
     #     print("\n--- TOP 10 KIERUNKÓW POD WZGLĘDEM PASAŻERÓW NA MIESZKAŘCA ---")
     #     print(
     #         pd.read_sql(
-    #             "SELECT City, Country, SUM(Est_Passengers) AS Ludzie, City_Population, ROUND(1.0 * SUM(Est_Passengers) / City_Population, 6) AS Podróżni_na_mieszkańca FROM live_traffic WHERE City_Population IS NOT NULL GROUP BY City ORDER BY Podróżni_na_mieszkańca DESC LIMIT 10;",
+    #             "SELECT City, Country, SUM(Est_Passengers) AS Ludzie, City_Population, ROUND(1.0 * SUM(Est_Passengers) / City_Population, 6) AS Podróżni_na_mieszkańca FROM flight_snapshots WHERE City_Population IS NOT NULL GROUP BY City ORDER BY Podróżni_na_mieszkańca DESC LIMIT 10;",
     #             conn,
     #         )
     #     )
