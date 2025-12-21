@@ -1,5 +1,8 @@
 name: FlightRadar24 data collector
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "*/30 * * * *"   # co 30 minut (UTC)
