@@ -218,22 +218,22 @@ if not df_flights.empty:
     )
 
 
-    print("\n--- SUKCES! TOP 10 KIERUNKÓW W TEJ CHWILI ---")
-    with engine.connect() as conn:
-        print(
-            pd.read_sql(
-                "SELECT City, Country, COUNT(*) as Loty, SUM(Est_Passengers) as Ludzie FROM live_traffic GROUP BY City ORDER BY Loty DESC LIMIT 10",
-                conn,
-            )
-        )
+    # print("\n--- SUKCES! TOP 10 KIERUNKÓW W TEJ CHWILI ---")
+    # with engine.connect() as conn:
+    #     print(
+    #         pd.read_sql(
+    #             "SELECT City, Country, COUNT(*) as Loty, SUM(Est_Passengers) as Ludzie FROM live_traffic GROUP BY City ORDER BY Loty DESC LIMIT 10",
+    #             conn,
+    #         )
+    #     )
 
-        print("\n--- TOP 10 KIERUNKÓW POD WZGLĘDEM PASAŻERÓW NA MIESZKAŘCA ---")
-        print(
-            pd.read_sql(
-                "SELECT City, Country, SUM(Est_Passengers) AS Ludzie, City_Population, ROUND(1.0 * SUM(Est_Passengers) / City_Population, 6) AS Podróżni_na_mieszkańca FROM live_traffic WHERE City_Population IS NOT NULL GROUP BY City ORDER BY Podróżni_na_mieszkańca DESC LIMIT 10;",
-                conn,
-            )
-        )
+    #     print("\n--- TOP 10 KIERUNKÓW POD WZGLĘDEM PASAŻERÓW NA MIESZKAŘCA ---")
+    #     print(
+    #         pd.read_sql(
+    #             "SELECT City, Country, SUM(Est_Passengers) AS Ludzie, City_Population, ROUND(1.0 * SUM(Est_Passengers) / City_Population, 6) AS Podróżni_na_mieszkańca FROM live_traffic WHERE City_Population IS NOT NULL GROUP BY City ORDER BY Podróżni_na_mieszkańca DESC LIMIT 10;",
+    #             conn,
+    #         )
+    #     )
 
 else:
     print("Brak danych z FlightRadar.")
