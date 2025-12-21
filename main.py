@@ -113,7 +113,7 @@ def fetch_flightradar_data():
         if f.destination_airport_iata and f.destination_airport_iata != "N/A":
             data_list.append({
                     "snapshot_utc": datetime.utcnow(),
-                    "callsign": f.callsign,
+                    "flight_number": f.callsign,
                     "airline_icao": f.airline_icao,
                     "aircraft_code": f.aircraft_code,
                     "origin_iata": f.origin_airport_iata,
