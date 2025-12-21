@@ -1,4 +1,5 @@
 pandas
 requests
 sqlalchemy
-FlightRadar24
+FlightRadarAPI
+beautifulsoup4
