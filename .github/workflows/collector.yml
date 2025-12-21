@@ -1,0 +1,34 @@
+name: FlightRadar24 data collector
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # co 30 minut (UTC)
+  workflow_dispatch:        # ręczne uruchomienie z UI
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run collector
+        run: python main.py
+
+      - name: Commit database
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add turystyka.db
+          git commit -m "Add flight snapshot" || echo "No changes"
+          git push
