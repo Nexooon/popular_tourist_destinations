@@ -10,6 +10,88 @@ from FlightRadar24 import FlightRadar24API  # Nowa biblioteka!
 # --- KONFIGURACJA ---
 DB_FILENAME = "turystyka.db"
 
+COUNTRY_FIX = {
+    "south korea": "korea, south",
+    "north korea": "korea, north",
+    "czech republic": "czechia",
+    "bahamas": "bahamas, the",
+    "cote d'ivoire": "côte d’ivoire",
+    "cape verde": "cabo verde",
+    #  jak rozbić na wyspy netherlands antilles?
+}
+
+CITY_FIX = {
+    "dallas-fort worth": "dallas",
+    "st-denis": "saint-denis",
+    "madras": "chennai",
+    "hurghada": "al ghardaqah",
+    "faleolo": "apia",
+    "tenerife": "santa cruz",  # generalnie jest więcej miast na Teneryfie, a lotniska podają tylko "Tenerife"
+    "tel-aviv": "tel aviv-yafo",
+    "philipsburg": "marigot",
+    "teterboro": "north bergen",  # lotnisko Teterboro obsługuje NYC, ale najbliższe miasto to North Bergen
+    "milano": "milan",
+    "madinah": "medina",
+    "st. petersburg": "saint petersburg",
+    "nandi": "nadi",
+    "punta cana": "higuey",
+    "ashkhabad": "ashgabat",
+    "dammam": "ad dammam",
+    "agana": "hagta",
+    "kashi": "kashgar",
+    "changcha": "changsha",
+    "biggin hill": "london",
+    "zandery": "paramaribo",
+    "pattaya": "phatthaya",
+    "al-ula": "al-ula",  # brak w bazie miast?
+    "phuquoc": "phu quoc",
+    "alma-ata": "almaty",
+    "chalons": "chalons-en-champagne",
+    "hewandorra": "gros islet",  # brak tego samego miasta w bazie, ale to ta sama wyspa
+    "dayong": "zhangjiajie",
+    "brize norton": "carterton",
+    "Fuerteventura": "puerto del rosario",
+    "duesseldorf": "dusseldorf",
+    "mount pleasant": "stanley",
+    "amilcar cabral": "espargos",
+    "gran canaria": "las palmas",
+    "rio negro": "medellin",
+    "bahrain": "manama",
+    "kuwait": "kuwait city",
+    "luxemburg": "luxembourg",
+    "east midlands": "nottingham",  # lotnisko obsługuje kilka miast, też derby i leicester
+    "heraklion": "irakleio",
+    "antigua": "saint john's",
+    "point salines": "saint george's",  # lotnisko na Grenadzie
+    "sharm el sheikh": "sharm el sheikh",  # brak w bazie miast?
+    "chimkent": "shymkent",
+    "tallinn-ulemiste international": "tallinn",
+    "port-of-spain": "port of spain",
+    "cebu": "cebu city",
+    "minsk 2": "minsk",
+    "raleigh-durham": "raleigh",  # lotnisko obsługuje też Durham
+    "danang": "da nang",
+    "cordington": "cordington",  # brak w bazie miast - na antigua i barbuda dostępne tylko saint john's
+    "balikesir korfez": "balikesir",  # lotnisko bardziej na wybrzeżu, ale to najbliższe większe miasto
+    "st.-denis": "saint-denis",
+    "rodriguez island": "port mathurin",
+    "mattala": "hambantota",
+    "kona": "kailua",
+    "ocean reef club airport": "key largo",
+    "coolangatta": "gold coast",
+    "plaisance": "curepipe",  # lotnisko na Mauritiusie, w teorii obsłuży więcej większych miast w pobliżu
+    "van nuys": "santa clarita",  # brak w bazie miast - lotnisko obsługuje region LA, dobrano najbliższe sensowne miasto
+    "blagoveschensk": "blagoveshchensk",
+    "petropavlovsk": "petropavlovsk-kamchatskiy",
+    "kilimanjaro": "arusha",
+    "ujung pandang": "makassar",
+    "billund": "soro",  # lotnisko obsługuje Legoland w Billund - brak w bazie - dobrano podobne miasto w danii
+    "huatulco": "la crucecita",
+    "penang": "george town",
+    "diass": "dakar",
+    "colorado co": "colorado co",  # jak rozróżnić miasta w stanach z takimi samymi nazwami?
+}
+
 print("--- START: POZYSKIWANIE DANYCH Z FLIGHTRADAR24 (UNOFFICIAL) ---")
 
 
@@ -195,8 +277,8 @@ if not df_flights.empty:
     df_final.rename(columns={"Name": "Airport_Name"}, inplace=True)
 
     # Dodanie populacji miasta
-    df_final["City_norm"] = df_final["City"].str.lower().str.strip()
-    df_final["Country_norm"] = df_final["Country"].str.lower().str.strip()
+    df_final["City_norm"] = df_final["City"].str.lower().str.strip().replace(CITY_FIX)
+    df_final["Country_norm"] = df_final["Country"].str.lower().str.strip().replace(COUNTRY_FIX)
 
     df_cities = get_city_population_mapping()
 
