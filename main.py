@@ -8,7 +8,7 @@ from datetime import datetime
 from FlightRadar24 import FlightRadar24API  # Nowa biblioteka!
 
 # --- KONFIGURACJA ---
-DB_FILENAME = "turystyka.db"
+DB_FILENAME = "turystyka2.db"
 
 COUNTRY_FIX = {
     "south korea": "korea, south",
